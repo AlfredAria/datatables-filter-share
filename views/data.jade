@@ -1,0 +1,82 @@
+include layout
+
+script(src='/javascripts/jquery.dataTables.min.js')
+link(rel='stylesheet', href='/stylesheets/jquery.dataTables.min.css')
+
+script(type='text/javascript').
+  var hostip = "http://#{hostip}";
+  var Table = undefined;
+  var columns = [
+            {title: "Title"},
+            {title: "Other titles"},
+            {title: "BL record ID"},
+            {title: "Type of resource"},
+            {title: "Content type"}
+        ];
+
+  $(function() {
+    var searchTerm = "#{searchTerm}";
+    loadData(searchTerm);
+    $('#trigger_button').on('click', function() {
+        redraw("my");
+    });
+    $('#trigger_button_2').on('click', function() {
+        redraw("you");
+    });
+
+   $("#share_link").on('click', function () {
+     console.log("Share clicked");
+     var searchTerm = $('#example_filter input').val();
+     var url = hostip + "/users/" + searchTerm;
+     $('#display_link').attr('href', url).html(url);
+   });
+
+  });
+
+
+  var loadData = function(searchTerm) {
+    $.get('/users/data', function(data) {
+        var tableData = data.map(function(curVal, index, array) {
+            var val =  [
+                curVal["Title"],
+                curVal["Other titles"],
+                curVal["BL record ID"],
+                curVal["Type of resource"],
+                curVal["Content type"]];
+            return val;
+        });
+        console.log(tableData);
+        Table = $("#example").DataTable({
+            "columns": columns,
+            "data": tableData
+        });
+        if (searchTerm) {
+            redraw(searchTerm);
+        }
+    });
+  };
+
+  var redraw = function(searchTerm) {
+    Table.search(searchTerm).draw();
+  }
+
+input(id="share_link", type="button", value="Share")
+a(id="display_link", href="#")
+br
+input(id="trigger_button", type="button", value="search My")
+input(id="trigger_button_2",type="button",value="search You")
+table(id="example", class="display custom-table", width="100%")
+  thead
+    tr
+      th Title
+      th Other titles
+      th BL record ID
+      th Type of resource
+      th Content type
+  tfoot
+    tr
+      th Title
+      th Other titles
+      th BL record ID
+      th Type of resource
+      th Content type
