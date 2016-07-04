@@ -1,0 +1,123 @@
+include layout
+
+script(src='/javascripts/jquery.dataTables.min.js')
+link(rel='stylesheet', href='/stylesheets/jquery.dataTables.min.css')
+
+script(type="text/javascript").
+
+    $(function() {
+
+        var Table = undefined;
+        var columns = [
+            {title: "Title"},
+            {title: "Other titles"},
+            {title: "BL record ID"},
+            {title: "Type of resource"},
+            {title: "Content type"}
+        ];
+
+        $.get('/users/data', function(data) {
+            var tableData = data.map(function(curVal, index, array) {
+                var val =  [
+                    curVal["Title"],
+                    curVal["Other titles"],
+                    curVal["BL record ID"],
+                    curVal["Type of resource"],
+                    curVal["Content type"]
+                ];
+                return val;
+            });
+            Table = $("#mytable").DataTable({
+                "columns": columns,
+                "data": tableData
+            });
+            $('#mytable tbody').on( 'click', 'tr', function () {
+                $(this).toggleClass('selected');
+                summary();
+            });
+        });
+
+        $('#submit').on('click', function() {
+            var selectedData = Table.rows('.selected').data();
+            var length = selectedData.length;
+            var selectedIDs = []
+            for (var i = 0; i < length; i ++) {
+              selectedIDs.push(selectedData[i][2]); // BL record ID
+            }
+            $.ajax({
+                url: '/users/multiselect/submit',
+                type: "POST",
+                data: {
+                    list_id: $('input#list_id').val(),
+                    person: $('input#person').val(),
+                    date: $('input#date').val(),
+                    data: selectedIDs
+                },
+                success: function( res, data ) {
+                     alert(res);
+                },
+            });
+
+        });
+
+        var summary = function() {
+            var selectedData = Table.rows('.selected').data();
+            var length = selectedData.length;
+            var selectedIDs = [];
+            var typeOfSource = new Set();
+            for (var i = 0; i < length; i ++) {
+                selectedIDs.push(selectedData[i][2]);
+                typeOfSource.add(selectedData[i][3]);
+            }
+            $('#preview_text').html(
+              "Selected IDs: " +
+              selectedIDs.join(', ') +
+              " Type Of Sources: " +
+              Array.from(typeOfSource).join(', ') +
+              '.'
+            );
+        };
+
+    });
+
+h2 
+p This is a jQuery DataTable play-around solution.
+p Rails SmartList is another solution but it requires a Gem.
+p Checkout jsGrid later.
+
+table(class="table table-striped")
+  tr
+    td
+      label(for="list_id") List ID
+    td
+      input(id="list_id", type="text", value="#{list_id}")
+  tr
+    td
+      label(for="person") Person
+    td
+      input(id="person", type="text", value="#{person}")
+  tr
+    td
+      label(for="date") Date
+    td
+      input(id="date", type="text", value="#{date}")
+
+table(id="mytable", class="display custom-table", width="100%")
+  thead
+    tr
+      th Title
+      th Other titles
+      th BL record ID
+      th Type of resource
+      th Content type
+  tfoot
+    tr
+      th Title
+      th Other titles
+      th BL record ID
+      th Type of resource
+      th Content type
+
+input(id="preview", type="button", value="Preview")
+p(id="preview_text")
+input(id="submit", type="submit", value="Submit")
