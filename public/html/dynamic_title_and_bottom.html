@@ -1,0 +1,296 @@
+<!doctype html>
+<html>
+<head>
+
+    <script src='/jquery/dist/jquery.js'></script>
+    <script src='/bootstrap/dist/js/bootstrap.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/classie/1.0.1/classie.min.js'></script>
+    <link rel='stylesheet' href='/bootstrap/dist/css/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+
+    <style>
+        header {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            background-color: #0683c9;
+            -webkit-transition: height 0.3s;
+            -moz-transition: height 0.3s;
+            -ms-transition: height 0.3s;
+            -o-transition: height 0.3s;
+            transition: height 0.3s;
+        }
+        header h1#logo {
+            display: inline-block;
+            height: 150px;
+            line-height: 150px;
+            float: left;
+            font-family: "Oswald", sans-serif;
+            font-size: 60px;
+            color: white;
+            font-weight: 400;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            -ms-transition: all 0.3s;
+            -o-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+        header nav {
+            display: inline-block;
+            float: right;
+        }
+        header nav a {
+            line-height: 150px;
+            margin-left: 20px;
+            color: #9fdbfc;
+            font-weight: 700;
+            font-size: 18px;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            -ms-transition: all 0.3s;
+            -o-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+        header nav a:hover {
+            color: white;
+        }
+        header.smaller {
+            height: 75px;
+            background-color: transparent;
+        }
+        header.smaller h1#logo {
+            height: 75px;
+            line-height: 75px;
+            font-size: 30px;
+        }
+        header.smaller nav a {
+            line-height: 75px;
+        }
+
+        @media all and (max-width: 660px) {
+            header h1#logo {
+                display: block;
+                float: none;
+                margin: 0 auto;
+                height: 100px;
+                line-height: 100px;
+                text-align: center;
+            }
+            header nav {
+                display: block;
+                float: none;
+                height: 50px;
+                text-align: center;
+                margin: 0 auto;
+            }
+            header nav a {
+                line-height: 50px;
+                margin: 0 10px;
+            }
+            header.smaller {
+                height: 75px;
+            }
+            header.smaller h1#logo {
+                height: 40px;
+                line-height: 40px;
+                font-size: 30px;
+            }
+            header.smaller nav {
+                height: 35px;
+            }
+            header.smaller nav a {
+                line-height: 35px;
+            }
+        }
+
+        /* Footer */
+        .row {text-align: center}
+        footer {
+            width: 100%;
+            overflow: hidden;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 50px;
+            background-color: #0683c9;
+            z-index: 999;
+            -webkit-transition: height 0.3s;
+            -moz-transition: height 0.3s;
+            -ms-transition: height 0.3s;
+            -o-transition: height 0.3s;
+            transition: height 0.3s;
+        }
+        footer.smaller {
+            width: 100%;
+            overflow: hidden;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 1px;
+            background-color: #0683c9;
+            z-index: 999;
+        }
+    </style>
+
+</head>
+<body>
+    
+    <header>
+    <div class="container clearfix">
+        <h1 id="logo">
+           Dynamic Title and Bottom
+        </h1>
+        <nav>
+            <a href="/html/collapse_title.html">Collapse Title</a>
+            <a href="/html/fixed_title.html">Fix Title</a>
+            <a href="/html/dynamic_title_and_bottom.html">Dynamic Title And Bottom</a>
+        </nav>
+    </div>
+    </header>
+
+    <div style="height: 320px"></div>
+
+    <pre>
+        header {
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            background-color: #0683c9;
+            -webkit-transition: height 0.3s;
+            -moz-transition: height 0.3s;
+            -ms-transition: height 0.3s;
+            -o-transition: height 0.3s;
+            transition: height 0.3s;
+        }
+        header h1#logo {
+            display: inline-block;
+            height: 150px;
+            line-height: 150px;
+            float: left;
+            font-family: "Oswald", sans-serif;
+            font-size: 60px;
+            color: white;
+            font-weight: 400;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            -ms-transition: all 0.3s;
+            -o-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+        header nav {
+            display: inline-block;
+            float: right;
+        }
+        header nav a {
+            line-height: 150px;
+            margin-left: 20px;
+            color: #9fdbfc;
+            font-weight: 700;
+            font-size: 18px;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            -ms-transition: all 0.3s;
+            -o-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+        header nav a:hover {
+            color: white;
+        }
+        header.smaller {
+            height: 100px;
+            background-color: transparent;
+        }
+        header.smaller h1#logo {
+            height: 75px;
+            line-height: 75px;
+            font-size: 5px;
+        }
+        header.smaller nav a {
+            line-height: 75px;
+        }
+
+        @media all and (max-width: 660px) {
+            header h1#logo {
+                display: block;
+                float: none;
+                margin: 0 auto;
+                height: 100px;
+                line-height: 100px;
+                text-align: center;
+            }
+            header nav {
+                display: block;
+                float: none;
+                height: 50px;
+                text-align: center;
+                margin: 0 auto;
+            }
+            header nav a {
+                line-height: 50px;
+                margin: 0 10px;
+            }
+            header.smaller {
+                height: 75px;
+            }
+            header.smaller h1#logo {
+                height: 40px;
+                line-height: 40px;
+                font-size: 30px;
+            }
+            header.smaller nav {
+                height: 35px;
+            }
+            header.smaller nav a {
+                line-height: 35px;
+            }
+        }
+    </pre>
+
+    <footer class="smaller">
+        <div class="row">     
+            <div class="span12">
+                Alfred Huang <span><a href="http://www.linkedin.com/in/haoyuanh">LinkedIn</a></span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        $(function() {
+            $(window).on('scroll', function(e) {
+
+                var header = document.querySelector("header");
+                var footer = document.querySelector("footer");
+
+                var scrollTop = $(window).scrollTop();// + $(window).height();
+                if (scrollTop > 250) {
+                    classie.add(header, "smaller");
+                } else {
+                    if (classie.has(header, "smaller")) {
+                        classie.remove(header, "smaller");
+                    }
+                }
+
+                console.log("Body.height: " + ($('body').height() - 400));
+                console.log("ScrollTop: " + scrollTop);
+
+                if (scrollTop < $('body').height() - 400) {
+                    classie.add(footer, "smaller");
+                } else {
+                    if (classie.has(footer, "smaller")) {
+                        classie.remove(footer, "smaller");
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
